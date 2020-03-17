@@ -1191,6 +1191,11 @@ object {
 	text-decoration: none;
 }
 
+.sidebar-widget {
+	background: #ececec;
+	padding: 30px;
+}
+
 .ad-widget {
 	margin-bottom: 30px;
 }

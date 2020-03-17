@@ -43,7 +43,7 @@ if ( ! is_active_sidebar( 'sidebar-1' ) ) {
 	?>
 	<?php if ($partner_query->have_posts()) : ?>
 		<?php while ($partner_query->have_posts()) : $partner_query->the_post(); ?>
-			<div class="ad-widget featured-partner-widget">
+			<div class="ad-widget featured-partner-widget sidebar-widget">
 				<h4 class="partner-header">Featured Partner</h4><!--.partner-header-->
 				<h5 class="partner-title"><?php the_title(); ?></h5><!--.partner-title-->
 				<?php $logo = get_field('logo'); ?>
@@ -52,13 +52,13 @@ if ( ! is_active_sidebar( 'sidebar-1' ) ) {
 					<a class="partner-phone" href="tel:<?php the_field('phone_number'); ?>"><?php the_field('phone_number'); ?></a>
 					<a class="partner-form" href="#" data-form-email="<?php the_field('contact_link'); ?>">Contact Partner</a>
 				</div><!--.partner-contact-->
-			</div><!--.ad-widget.featured-partner-widget-->
+			</div><!--.ad-widget.featured-partner-widget.sidebar-widget-->
 		<?php endwhile; ?>
 		<?php wp_reset_query(); ?>
 	<?php endif; ?>
 
 	<?php if (get_field('ad_type')) : ?>
-		<div class="ad-widget">
+		<div class="ad-widget sidebar-widget">
 			<?php $ad_type = get_field('ad_type'); ?>
 			<?php if ($ad_type == 'image') : ?>
 				<?php if (have_rows('ad_image')) : ?>
@@ -72,7 +72,25 @@ if ( ! is_active_sidebar( 'sidebar-1' ) ) {
 			<?php elseif ($ad_type == 'script') : ?>
 				<?php the_field('ad_script'); ?>
 			<?php endif; ?>
-		</div><!--.ad-widget-->
+		</div><!--.ad-widget.sidebar-widget-->
 	<?php endif; ?>
+
+	<div id="helpful-posts-widget" class="sidebar-widget">
+		<h3 class="widget-title">Helpful Articles</h3><!--.widget-title-->
+		<?php $args = array(
+			'post_type' => 'post'
+		); ?>
+		<?php $the_query = new WP_Query($args); ?>
+		<?php if ($the_query->have_posts()) : ?>
+			<?php while ($the_query->have_posts()) : $the_query->the_post(); ?>
+				<article class="helpful-post">
+					<h4 class="helpful-post-title">
+						<a class="helpful-post-link" href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+					</h4><!--.helpful-post-title-->
+				</article><!--.helpful-post-->
+			<?php endwhile; ?>
+			<?php wp_reset_query(); ?>
+		<?php endif; ?>
+	</div><!--#helpful-posts-widget.sidebar-widget-->
 
 </aside><!-- #secondary -->
