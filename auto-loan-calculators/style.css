@@ -1161,6 +1161,24 @@ object {
 	width: 100%;
 }
 /*--------------------------------------------------------------
+# Bottom CTA Buttons
+--------------------------------------------------------------*/
+.bottom-cta-btn {
+	background: #ececec;
+	color: black;
+	display: inline-block;
+	margin: 30px 15px 0;
+	padding: 30px;
+	text-align: center;
+	text-decoration: none;
+}
+.bottom-cta-btn:first-of-type {
+	margin-left: 0;
+}
+.bottom-cta-btn:last-of-type {
+	margin-right: 0;
+}
+/*--------------------------------------------------------------
 # Sidebar
 --------------------------------------------------------------*/
 #embed-widget-btn {
@@ -1212,6 +1230,7 @@ object {
 --------------------------------------------------------------*/
 #colophon {
 	background: black;
+	color: white;
 	margin-top: 30px;
 	padding: 30px;
 }
