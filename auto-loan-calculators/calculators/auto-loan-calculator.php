@@ -1,6 +1,6 @@
 <h1 id="main-title">Auto Loan Calculator</h1><!--#main-title-->
 <h2 id="main-subtitle">Estimate your car payment by using our calculator below.</h2><!--#main-subtitle-->
-<form id="alc-calculator" class="site-form" action="/" method="post">
+<form id="alc-calculator" class="site-form calculator-form" action="/" method="post">
     <label class="form-label" for="alc-price">Price
         <input id="alc-price" class="form-input" type="number" name="alc-price" placeholder="35000.00" required /><!--#alc-price-->
     </label><!--.form-label-->
@@ -25,29 +25,29 @@
     <label class="form-label" for="alc-sales-tax">Sales Tax Rate (%)
         <input id="alc-sales-tax" class="form-input" type="number" name="alc-sales-tax" placeholder="3.5" required /><!--#alc-sales-tax-->
     </label><!--.form-label-->
-    <input id="alc-submit" type="submit" value="Calculate" />
+    <input id="alc-submit" class="calculator-submit" type="submit" value="Calculate" />
 </form><!--#alc-calculator-->
 
 <?php get_template_part('template-parts/calculator-cta-btns'); ?>
 
-<div id="alc-results">
+<div id="alc-results" class="calculator-results">
     <h2 id="alc-results-title">Results</h2><!--#alc-results-title-->
     <div id="alc-monthly-pymnt">
         <h3 class="alc-total-label">Estimated Monthly Car Payment</h3><!--.alc-total-label-->
-        <h4 id="alc-monthly-pymnt">$565.94</h4><!--#alc-monthly-pymnt-->
+        <h4 id="alc-monthly-pymnt">$0.00</h4><!--#alc-monthly-pymnt-->
     </div><!--#alc-monthly-pymnt-->
     <div id="alc-result-totals">
         <div id="alc-total-loan" class="total-item">
             <h3 class="alc-total-label">Total Loan Amount</h3><!--.alc-total-label-->
-            <h4 class="alc-total-amnt">$24,575.00</h4><!--.alc-total-amnt-->
+            <h4 class="alc-total-amnt">$0.00</h4><!--.alc-total-amnt-->
         </div><!--#alc-total-loan-->
         <div id="alc-total-interest" class="total-item">
             <h3 class="alc-total-label">Total Interest Paid</h3><!--.alc-total-label-->
-            <h4 class="alc-total-amnt">$2,590.35</h4><!--.alc-total-amnt-->
+            <h4 class="alc-total-amnt">$0.00</h4><!--.alc-total-amnt-->
         </div><!--#alc-total-interest-->
         <div id="alc-total-pymnts" class="total-item">
             <h3 class="alc-total-label">Total Payments</h3><!--.alc-total-label-->
-            <h4 class="alc-total-amnt">$27,165.35</h4><!--.alc-total-amnt-->
+            <h4 class="alc-total-amnt">$0.00</h4><!--.alc-total-amnt-->
         </div><!--#alc-total-pymnts-->
     </div><!--#alc-result-totals-->
 </div><!--#alc-results-->
