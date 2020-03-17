@@ -38,6 +38,8 @@
                     <input id="alc-submit" type="submit" value="Calculate" />
                 </form><!--#alc-calculator-->
 
+                <?php get_template_part('template-parts/calculator-cta-btns'); ?>
+
                 <div id="alc-results">
                     <h2 id="alc-results-title">Results</h2><!--#alc-results-title-->
                     <div id="alc-monthly-pymnt">

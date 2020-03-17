@@ -1138,6 +1138,29 @@ object {
 	width: 100%;
 }
 /*--------------------------------------------------------------
+# Calculator CTA Buttons
+--------------------------------------------------------------*/
+#calculator-cta-btns {
+	align-items: center;
+	background: #ececec;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	margin-bottom: 30px;
+	padding: 30px;
+}
+.calculator-cta-btn {
+	background: white;
+	display: block;
+	color: black;
+	max-width: calc(50% - 15px);
+	padding: 30px;
+	text-align: center;
+	text-decoration: none;
+	width: 100%;
+}
+/*--------------------------------------------------------------
 # Sidebar
 --------------------------------------------------------------*/
 #embed-widget-btn {
