@@ -40,6 +40,8 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 # Media
 	## Captions
 	## Galleries
+# Coming Soon
+# Header
 --------------------------------------------------------------*/
 /*--------------------------------------------------------------
 # Normalize
@@ -523,6 +525,16 @@ table {
 	width: 100%;
 }
 
+.inner {
+	align-items: center;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	margin: 0 auto;
+	max-width: 1170px;
+	padding: 0 15px;
+}
 /*--------------------------------------------------------------
 # Forms
 --------------------------------------------------------------*/
@@ -844,7 +856,7 @@ a:hover, a:active {
 
 .post,
 .page {
-	margin: 0 0 1.5em;
+	margin: 0;
 }
 
 .updated:not(.published) {
@@ -982,4 +994,201 @@ object {
 
 .gallery-caption {
 	display: block;
+}
+/*--------------------------------------------------------------
+# Coming Soon
+--------------------------------------------------------------*/
+.coming-soon {
+	align-items: center;
+	background-image: url(http://www.autoloancalculators.com/wp-content/uploads/2020/03/cs-bluehost-bg.jpg);
+	background-size: cover;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	justify-content: center;
+	position: fixed;
+	width: 100%;
+}
+#coming-soon-header, #coming-soon-subheader {
+	text-align: center;
+}
+#coming-soon-login {
+	background: #2e66ba;
+	border: 1px solid #2e66ba;
+	border-radius: 5px;
+	color: white;
+	display: inline-block;
+	font-family: "Open Sans", sans-serif;
+	margin: 20px 0;
+	padding: 8px 16px;
+	text-decoration: none;
+}
+/*--------------------------------------------------------------
+# Header
+--------------------------------------------------------------*/
+.site-menu {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.site-menu li a {
+	text-decoration: none;
+}
+
+#top-navigation-bar {
+	background: black;
+	padding: 15px 0;
+}
+#site-logo {
+	background: white;
+	color: black;
+	display: block;
+	padding: 30px;
+	text-align: center;
+	text-decoration: none;
+}
+#top-menu li {
+	margin: 0 15px;
+}
+#top-menu li:last-of-type {
+	margin-right: 0;
+}
+#top-menu li a {
+	color: white;
+}
+
+#site-navigation-bar {
+	background: #666;
+	padding: 15px 0;
+}
+#primary-menu li {
+	margin: 0 15px;
+}
+#primary-menu li:first-of-type {
+	margin-left: 0;
+}
+#primary-menu li a {
+	color: white;
+	text-decoration: none;;
+}
+
+#new-price-cta {
+	color: white;
+	text-decoration: none;
+}
+/*--------------------------------------------------------------
+# Page
+--------------------------------------------------------------*/
+#content .inner {
+	align-items: flex-start;
+}
+#primary {
+	max-width: calc(70% - 15px);
+}
+#secondary {
+	max-width: calc(30% - 15px);
+}
+/*--------------------------------------------------------------
+# Auto Loan Calculator
+--------------------------------------------------------------*/
+.site-form {
+	align-items: center;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+.site-form label {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	margin-bottom: 15px;
+	max-width: calc(50% - 15px);
+	width: 100%;
+}
+
+#alc-calculator {
+	background: #ececec;
+	margin-bottom: 30px;
+	padding: 15px 15px 0;
+}
+#alc-submit {
+	margin: 0 auto 15px;
+}
+
+#alc-results {
+	background: #ececec;
+	box-sizing: border-box;
+	padding: 15px;
+	text-align: center;
+}
+#alc-result-totals {
+	align-items: center;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-around;
+}
+#alc-result-totals .total-item {
+	max-width: calc(33% - 15px);
+	width: 100%;
+}
+/*--------------------------------------------------------------
+# Sidebar
+--------------------------------------------------------------*/
+#embed-widget-btn {
+	background: #ececec;
+	color: black;
+	display: block;
+	margin: 30px 0;
+	padding: 30px;
+	text-align: center;
+	text-decoration: none;
+}
+
+.ad-widget {
+	margin-bottom: 30px;
+}
+.ad-widget-img {
+	display: block;
+}
+
+.featured-partner-widget {
+	align-items: center;
+	background: #ececec;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	padding: 30px;
+}
+.partner-header, .partner-title {
+	margin: 5px 0;
+	width: 100%;
+}
+.partner-header {
+	margin-top: 0;
+}
+.partner-title {
+	margin-bottom: 15px;
+}
+.partner-logo {
+	max-width: calc(30% - 15px);
+}
+.partner-contact {
+	display: flex;
+	flex-direction: column;
+	max-width: calc(70% - 15px);
+}
+/*--------------------------------------------------------------
+# Footer
+--------------------------------------------------------------*/
+#colophon {
+	background: black;
+	margin-top: 30px;
+	padding: 30px;
 }
