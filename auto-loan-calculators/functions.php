@@ -44,8 +44,50 @@ if ( ! function_exists( 'auto_loan_calculators_setup' ) ) :
 
 		// This theme uses wp_nav_menu() in one location.
 		register_nav_menus( array(
-			'menu-1' => esc_html__( 'Primary', 'auto-loan-calculators' ),
+			'primary' => esc_html__( 'Primary Navigation', 'auto-loan-calculators' ),
 		) );
+		register_nav_menus( array(
+			'top' => esc_html__( 'Top Navigation', 'auto-loan-calculators' ),
+		) );
+
+		/* Setup 'Parnters' custom post type */
+		add_action( 'init', 'partners_init' );
+		function partners_init() {
+			$labels = array(
+				'name'               => _x( 'Partners', 'post type general name', 'your-plugin-textdomain' ),
+				'singular_name'      => _x( 'Partner', 'post type singular name', 'your-plugin-textdomain' ),
+				'menu_name'          => _x( 'Partners', 'admin menu', 'your-plugin-textdomain' ),
+				'name_admin_bar'     => _x( 'Partner', 'add new on admin bar', 'your-plugin-textdomain' ),
+				'add_new'            => _x( 'Add New', 'partner', 'your-plugin-textdomain' ),
+				'add_new_item'       => __( 'Add New Partner', 'your-plugin-textdomain' ),
+				'new_item'           => __( 'New Partner', 'your-plugin-textdomain' ),
+				'edit_item'          => __( 'Edit Partner', 'your-plugin-textdomain' ),
+				'view_item'          => __( 'View Partner', 'your-plugin-textdomain' ),
+				'all_items'          => __( 'All Partners', 'your-plugin-textdomain' ),
+				'search_items'       => __( 'Search Partners', 'your-plugin-textdomain' ),
+				'parent_item_colon'  => __( 'Parent Partners:', 'your-plugin-textdomain' ),
+				'not_found'          => __( 'No partners found.', 'your-plugin-textdomain' ),
+				'not_found_in_trash' => __( 'No partners found in Trash.', 'your-plugin-textdomain' )
+			);
+
+			$args = array(
+				'labels'             => $labels,
+				'description'        => __( 'Description.', 'your-plugin-textdomain' ),
+				'public'             => true,
+				'publicly_queryable' => true,
+				'show_ui'            => true,
+				'show_in_menu'       => true,
+				'query_var'          => true,
+				'rewrite'            => array( 'slug' => 'partner' ),
+				'capability_type'    => 'post',
+				'has_archive'        => true,
+				'hierarchical'       => false,
+				'menu_position'      => null,
+				'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' )
+			);
+
+			register_post_type( 'partner', $args );
+		}
 
 		/*
 		 * Switch default core markup for search form, comment form, and comments
