@@ -1093,7 +1093,7 @@ object {
 	max-width: calc(30% - 15px);
 }
 /*--------------------------------------------------------------
-# Auto Loan Calculator
+# Calculator Forms
 --------------------------------------------------------------*/
 .site-form {
 	align-items: center;
@@ -1111,29 +1111,29 @@ object {
 	width: 100%;
 }
 
-#alc-calculator {
+.calculator-form {
 	background: #ececec;
 	margin-bottom: 30px;
 	padding: 15px 15px 0;
 }
-#alc-submit {
+.calculator-submit {
 	margin: 0 auto 15px;
 }
 
-#alc-results {
+.calculator-results {
 	background: #ececec;
 	box-sizing: border-box;
 	padding: 15px;
 	text-align: center;
 }
-#alc-result-totals {
+.calculator-result-totals {
 	align-items: center;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
 	justify-content: space-around;
 }
-#alc-result-totals .total-item {
+.calculator-result-totals .total-item {
 	max-width: calc(33% - 15px);
 	width: 100%;
 }
@@ -1238,4 +1238,8 @@ object {
 	color: white;
 	margin-top: 30px;
 	padding: 30px;
+}
+#site-privacy {
+	color: white;
+	text-decoration: none;
 }
