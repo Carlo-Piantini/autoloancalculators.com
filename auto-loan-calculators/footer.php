@@ -15,7 +15,8 @@
 
 	<footer id="colophon" class="site-footer">
 		<div class="site-info inner">
-			&#169; 2020 - Auto Loan Calculators - Developed by Carlo Piantini
+			<span id="site-copyright">&#169; 2020 - Auto Loan Calculators - Developed by Carlo Piantini</span><!--#site-copyright-->
+			<a id="site-privacy" href="/privacy-policy">Privacy Policy</a><!--#site-privacy-->
 		</div><!-- .site-info -->
 	</footer><!-- #colophon -->
 </div><!-- #page -->
