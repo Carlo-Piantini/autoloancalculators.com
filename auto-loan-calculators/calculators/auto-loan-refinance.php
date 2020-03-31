@@ -1,23 +1,20 @@
 <h1 id="main-title">Auto Loan Refinance</h1><!--#main-title-->
 <h2 id="main-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h2><!--#main-subtitle-->
 <form id="refinance-calculator" class="site-form calculator-form" action="/" method="post">
-    <label class="form-label" for="refinance-mnthly-pymnt">Current Montly Payment
-        <input id="refinance-mnthly-pymnt" class="form-input" type="number" name="refinance-mnthly-pymnt" placeholder="35000.00" step="0.01"     /><!--#refinance-mnthly-pymnt-->
+    <label class="form-label" for="refinance-mnthly-pymnt">Current Monthly Payment
+        <input id="refinance-mnthly-pymnt" class="form-input" type="number" name="refinance-mnthly-pymnt" placeholder="377.00" step="0.01"     /><!--#refinance-mnthly-pymnt-->
     </label><!--.form-label-->
     <label class="form-label" for="refinance-loan-balance">Current Loan Balance
-        <input id="refinance-loan-balance" class="form-input" type="number" name="refinance-loan-balance" placeholder="35000.00" step="0.01"     /><!--#refinance-loan-balance-->
+        <input id="refinance-loan-balance" class="form-input" type="number" name="refinance-loan-balance" placeholder="20000.00" step="0.01"     /><!--#refinance-loan-balance-->
     </label><!--.form-label-->
     <label class="form-label" for="refinance-interest-rate">Current Interest Rate
-        <input id="refinance-interest-rate" class="form-input" type="number" name="refinance-interest-rate" placeholder="35000.00" step="0.01"   /><!--#refinance-interest-rate-->
-    </label><!--.form-label-->
-    <label class="form-label" for="refinance-current-term">Current Loan Term (Yrs)
-        <input id="refinance-current-term" class="form-input" type="number" name="refinance-current-term" placeholder="35000.00" /><!--#refinance-interest-rate-->
+        <input id="refinance-interest-rate" class="form-input" type="number" name="refinance-interest-rate" placeholder="5.00" step="0.01"   /><!--#refinance-interest-rate-->
     </label><!--.form-label-->
     <label class="form-label" for="refinance-new-rate">New Loan Interest Rate
-        <input id="refinance-new-rate" class="form-input" type="number" name="refinance-new-rate" placeholder="35000.00" step="0.01"     /><!--#refinance-new-rate-->
+        <input id="refinance-new-rate" class="form-input" type="number" name="refinance-new-rate" placeholder="3.00" step="0.01"     /><!--#refinance-new-rate-->
     </label><!--.form-label-->
     <label class="form-label" for="refinance-new-term">New Loan Term (Yrs)
-        <input id="refinance-new-term" class="form-input" type="number" name="refinance-new-term" placeholder="35000.00" step="0.01"     /><!--#refinance-new-term-->
+        <input id="refinance-new-term" class="form-input" type="number" name="refinance-new-term" placeholder="4" /><!--#refinance-new-term-->
     </label><!--.form-label-->
     <input id="refinance-submit" class="calculator-submit" type="submit" value="Calculate" />
 </form><!--#refinance-calculator.site-form.calculator-form-->

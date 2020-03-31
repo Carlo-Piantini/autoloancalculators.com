@@ -8,10 +8,10 @@
         <input id="affordability-down-pymnt" class="form-input" type="number" name="affordability-down-pymnt" placeholder="0.00" step="0.01" /><!--#affordability-down-pymnt-->
     </label><!--.form-label-->
     <label class="form-label" for="affordability-trade-in">Value of Trade-In
-        <input id="affordability-trade-in" class="form-input" type="number" name="affordability-trade-in" placeholder="6500.00" step="0.01" /><!--#affordability-trade-in-->
+        <input id="affordability-trade-in" class="form-input" type="number" name="affordability-trade-in" placeholder="0.00" step="0.01" /><!--#affordability-trade-in-->
     </label><!--.form-label-->
     <label class="form-label" for="affordability-amnt-owed">Amount Owed on Trade-In
-        <input id="affordability-amnt-owed" class="form-input" type="number" name="affordability-amnt-owed" placeholder="3000.00" step="0.01" /><!--#affordability-price-->
+        <input id="affordability-amnt-owed" class="form-input" type="number" name="affordability-amnt-owed" placeholder="0.00" step="0.01" /><!--#affordability-price-->
     </label><!--.form-amnt-owed-->
     <label class="form-label" for="affordability-term">Term (Yrs)
         <input id="affordability-term" class="form-input" type="number" name="affordability-term" placeholder="5" /><!--#affordability-term-->
