@@ -1073,11 +1073,13 @@ object {
 }
 #primary-menu li a {
 	color: white;
+	font-size: 14px;
 	text-decoration: none;;
 }
 
 #new-price-cta {
 	color: white;
+	font-size: 14px;
 	text-decoration: none;
 }
 /*--------------------------------------------------------------
