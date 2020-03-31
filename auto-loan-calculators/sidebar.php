@@ -31,13 +31,38 @@ if ( ! is_active_sidebar( 'sidebar-1' ) ) {
 		$api_result = json_decode($json, true);
 
 		// Store the zipcode of the IP address in a local variable
+		// echo '<pre>' . print_r($api_result) . '</pre>';
+		$result_city = $api_result['city'];
+		$result_state = $api_result['region_name'];
 		$result_zip = $api_result['zip'];
 
 		// Setup the args for the custom WP_Query to generate the featured partner based on IP
+		function my_posts_where( $where ) {
+			$where = str_replace("meta_key = 'zip_codes_$", "meta_key LIKE 'zip_codes_%", $where);
+			return $where;
+		}
+		add_filter('posts_where', 'my_posts_where');
+
 		$args = array(
-			'post_type' => 'partner',
-			'meta_key' => 'location',
-			'meta_value' => $result_zip
+			'post_type' 	=> 'partner',
+			'meta_query'	=> array(
+				'relation'	=> 'OR',
+				array(
+					'key'		=> 'city',
+					'compare'	=> '=',
+					'value'		=> $result_city
+				),
+				array(
+					'key'		=> 'state',
+					'compare'	=> '=',
+					'value'		=> $result_state
+				),
+				array(
+					'key'		=> 'zip_codes_$_zip_code',
+					'compare'	=> '=',
+					'value'		=> $result_zip
+				)
+			)
 		);
 		$partner_query = new WP_Query($args);
 	?>
