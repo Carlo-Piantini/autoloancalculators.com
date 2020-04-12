@@ -1233,6 +1233,90 @@ object {
 	max-width: calc(70% - 15px);
 }
 /*--------------------------------------------------------------
+# Forms
+--------------------------------------------------------------*/
+.form-header {
+	color: black;
+}
+.error-field {
+	box-shadow: red 1px 1px 18px 1px;
+}
+.form-disclaimer {
+	font-size: 12px;
+	font-style: italic;
+}
+/*--------------------------------------------------------------
+# Modals
+--------------------------------------------------------------*/
+.modal-wrap {
+	display: none;
+}
+.modal-wrap.active {
+	align-items: center;
+	bottom: 0;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	height: 100%;
+	left: 0;
+	margin: 0 auto;
+	position: fixed;
+	right: 0;
+	top: 0;
+	width: 100%;
+	z-index: 1;
+}
+.modal-overlay {
+	background: rgba(0, 0, 0, 0.5);
+	height: 100%;
+	position: absolute;
+	width: 100%;
+}
+.modal-close {
+	background: black;
+	color: white;
+	display: block;
+	height: 30px;
+	line-height: 28px;
+	position: absolute;
+	right: 0;
+	text-align: center;
+	text-decoration: none;
+	top: 0;
+	width: 30px;
+}
+/*--------------------------------------------------------------
+## New Car Modal, Featured Partner Modal
+--------------------------------------------------------------*/
+#new-car-modal, #featured-partner-modal {
+	background: #ececec;
+	padding: 30px;
+	position: relative;
+	z-index: 3;
+}
+#new-car-form, #featured-partner-form {
+	display: flex;
+	flex-direction: column;
+}
+#new-car-form .form-label, #featured-partner-form .form-label {
+	color: black;
+	margin: 15px 0;
+}
+#new-car-form .form-label:first-of-type, #featured-partner-form .form-label:first-of-type {
+	margin-top: 0;
+}
+#new-car-form input, #new-car-form select,
+#featured-partner-form input, #featured-partner-form select {
+	background: white;
+	border-radius: 3px;
+	height: 38px;
+	padding: 0 5px;
+	width: 100%;
+}
+#new-car-form .form-submit, #featured-partner-form .form-submit {
+	margin-top: 15px;
+}
+/*--------------------------------------------------------------
 # Footer
 --------------------------------------------------------------*/
 #colophon {

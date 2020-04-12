@@ -75,8 +75,16 @@ if ( ! is_active_sidebar( 'sidebar-1' ) ) {
 				<img class="partner-logo" src="<?php echo $logo['url']; ?>" alt="<?php echo $logo['alt']; ?>" /><!--.partner-logo-->
 				<div class="partner-contact">
 					<a class="partner-phone" href="tel:<?php the_field('phone_number'); ?>"><?php the_field('phone_number'); ?></a>
-					<a class="partner-form" href="#" data-form-email="<?php the_field('contact_link'); ?>">Contact Partner</a>
+					<a class="modal-btn" data-modal="featured-partner-modal" href="#">Contact Partner</a>
 				</div><!--.partner-contact-->
+
+				<div class="modal-wrap">
+					<div class="modal-overlay"></div><!--.modal-overlay-->
+					<div id="featured-partner-modal">
+						<a class="modal-close" href="#">X</a><!--.modal-close-->
+						<?php get_template_part('template-parts/forms/featured-partner-form'); ?>
+					</div><!--#featured-partner-modal-->
+				</div><!--.modal-wrap-->
 			</div><!--.ad-widget.featured-partner-widget.sidebar-widget-->
 		<?php endwhile; ?>
 		<?php wp_reset_query(); ?>

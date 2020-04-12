@@ -169,11 +169,20 @@ function auto_loan_calculators_scripts() {
 
 	wp_enqueue_script( 'auto-loan-calculators', get_template_directory_uri() . '/js/calculators.js', array('jquery'), '20151215', true );
 
+	wp_register_script( 'auto-loan-calculators-form-processor', get_template_directory_uri() . '/js/form-processor.js', array('jquery'), '20151215', true );
+	wp_localize_script( 'auto-loan-calculators-form-processor', 'ajax', array( 'url' => admin_url('admin-ajax.php')) );
+	wp_enqueue_script( 'auto-loan-calculators-form-processor' );
+
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'auto_loan_calculators_scripts' );
+
+/**
+ * Include form processors for the site.
+ */
+require get_template_directory() . '/inc/form-processor.php';
 
 /**
  * Implement the Custom Header feature.

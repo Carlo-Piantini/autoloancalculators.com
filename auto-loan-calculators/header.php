@@ -53,7 +53,7 @@
 						) );
 						?>
 					</nav><!-- #site-navigation -->
-					<a id="new-price-cta" href="#">New Car Price Quote</a><!--#new-price-cta-->
+					<a id="new-price-cta" class="modal-btn" data-modal="new-car-modal" href="#">New Car Price Quote</a><!--#new-price-cta-->
 				</div><!--.inner-->
 			</div><!--#site-navigation-bar-->
 		</header><!-- #masthead -->

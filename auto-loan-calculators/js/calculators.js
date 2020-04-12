@@ -69,25 +69,26 @@ jQuery(document).ready(function($) {
                     var num_per = term * 12;
                     var adj_rate = interest_rate / 100 / 12;
 
-                    var price = pv(adj_rate, num_per, pymnt) - down_pymnt - trade_in + parseFloat(amnt_owed, 2);
-                    var total_interest = (total_pymnt - price).toFixed(2);
+                    var price = pv(adj_rate, num_per, pymnt) + parseFloat(down_pymnt, 2) + parseFloat(trade_in, 2) - amnt_owed;
+                    var loan_amnt = price - trade_in + parseFloat(amnt_owed, 2) - down_pymnt;
+                    var total_interest = (total_pymnt - loan_amnt).toFixed(2);
                     var results = {
                         result_fields : {
                             price : {
                                 result_id : '#affordability-price',
-                                result_value : parseFloat(price, 2).toFixed(2),
+                                result_value : '$' + parseFloat(price, 2).toFixed(2),
                             },
                             loan_amnt : {
                                 result_id : '#affordability-total-loan .affordability-total-amnt',
-                                result_value : parseFloat(price, 2).toFixed(2),
+                                result_value : '$' + parseFloat(loan_amnt, 2).toFixed(2),
                             },
                             total_interest : {
                                 result_id : '#affordability-total-interest .affordability-total-amnt',
-                                result_value : parseFloat(total_interest, 2).toFixed(2),
+                                result_value : '$' + parseFloat(total_interest, 2).toFixed(2),
                             },
                             total_pymnt : {
                                 result_id : '#affordability-total-pymnts .affordability-total-amnt',
-                                result_value : parseFloat(total_pymnt, 2).toFixed(2),
+                                result_value : '$' + parseFloat(total_pymnt, 2).toFixed(2),
                             },
                         },
                     }
@@ -110,10 +111,10 @@ jQuery(document).ready(function($) {
                     var old_nper = nper(adj_rate, mnthly_pymnt, loan_balance);
                     var old_interest = (old_nper * mnthly_pymnt) - loan_balance;
                     var new_interest = (new_pymnt * new_term * 12) - loan_balance;
-                    var interest_difference = new_interest - old_interest; 
+                    var interest_difference = old_interest - new_interest; 
 
                     var mnthly_savings = parseFloat(mnthly_pymnt, 2).toFixed(2) - parseFloat(new_pymnt, 2).toFixed(2);
-                    var new_total = new_pymnt * num_per;
+                    var new_total = parseFloat(new_pymnt, 2).toFixed(2) * num_per;
                     var results = {
                         result_fields : {
                             new_pymnt : {
@@ -122,7 +123,7 @@ jQuery(document).ready(function($) {
                             },
                             mnthly_savings : {
                                 result_id : '#refinance-mnthly-savings .refinance-total-amnt',
-                                result_value : '$' + mnthly_savings,
+                                result_value : '$' + parseFloat(mnthly_savings, 2).toFixed(2),
                             },
                             difference_in_interest : {
                                 result_id : '#refinance-difference-in-interest .refinance-total-amnt',
@@ -171,7 +172,7 @@ jQuery(document).ready(function($) {
 
                     var adj_rate = interest_rate / 100 / 12;
                     var num_per = lease_term * 12;
-                    var present_value = (1 + (sales_tax / 100)) * (vehicle_price - down_pymnt - rebates_incentives - trade_value + parseFloat(amnt_owed, 2));
+                    var present_value = (1 + (sales_tax / 100)) * vehicle_price - down_pymnt - rebates_incentives - trade_value + parseFloat(amnt_owed, 2);
                     var purchased_instead = pmt(adj_rate, num_per, present_value);
                     
                     var results = {
@@ -262,7 +263,6 @@ jQuery(document).ready(function($) {
     }
 
     function update_results(results) {
-        console.log(results);
         for (var result_fields in results) {
             for (var field in results[result_fields]) {
                 var result_id;
@@ -314,7 +314,7 @@ jQuery(document).ready(function($) {
         var d = -(Math.log10(c));
 
         var nper = d / a;
-        return parseInt(nper);
+        return nper;
     }
 
     // Javier Feliu's solution to implementing Excel's RATE function in JS
