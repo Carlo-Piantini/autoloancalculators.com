@@ -1,14 +1,11 @@
 <form id="new-car-form">
-    <h3 class="form-header"></h3><!--#new-car-form-header-->
-    <label class="form-label" for="name-field">Your Name:<br/>
-        <input id="name-field" class="form-input" name="name-field" type="text" placeholder="Your Name" data-email-label="Name" /><!--#name-field.form-input-->
-    </label><!--.form-label-->
-    <label class="form-label" for="email-field">Your Email:<br/>
-        <input id="email-field" class="form-input" name="email-field" type="email" placeholder="Your Email" data-email-label="Email" /><!--#email-field.form-input-->
-    </label><!--.form-label-->
-    <label class="form-label" for="make-field">Please select a make:<br/>
+    <h3 class="form-header"><?php the_field('form_title', 'options'); ?></h3><!--.form-header-->
+    <p class="form-description"><?php the_field('form_description', 'options'); ?></p><!--.form-description-->
+    <hr/>
+    <label class="form-label" for="make-field">
+        <span class="form-copy">Select a Make</span>
         <select id="make-field" class="form-input" name="make-field" data-email-label="Make">
-            <option value="">Please select a make:</option>
+            <option value="">Select a Make:</option>
             <option data-model-key="acura_models" value="Acura">Acura</option>
             <option data-model-key="alfa_models" value="Alfa Romeo">Alfa Romeo</option>
             <option data-model-key="aston_models" value="Aston Martin">Astin Martin</option>
@@ -51,9 +48,36 @@
             <option data-model-key="volvo_models" value="Volvo">Volvo</option>
         </select><!--#make-field.form-input-->
     </label>
-    <label class="form-label" for="model-field">Please select a model:<br/>
+    <label class="form-label" for="model-field">
+        <span class="form-copy">Select a Model</span>
         <select id="model-field" class="form-input" disabled data-email-label="Model"></select><!--#make-field.form-input-->
     </label>
-    <p class="form-disclaimer">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit</p><!--.form-disclaimer-->
-    <input class="form-submit" type="submit" value="Submit">
+    <hr/>
+    <label class="form-label" for="car-fname-field">
+        <span class="form-copy">First Name</span>
+        <input id="car-fname-field" class="form-input" name="car-fname-field" type="text" placeholder="First Name" data-email-label="First Name" /><!--#fname-field.form-input-->
+    </label><!--.form-label-->
+    <label class="form-label" for="car-lname-field">
+        <span class="form-copy">Last Name</span>
+        <input id="car-lname-field" class="form-input" name="car-lname-field" type="text" placeholder="Last Name" data-email-label="Last Name" /><!--#lname-field.form-input-->
+    </label><!--.form-label-->
+    <label class="form-label" for="car-email-field">
+        <span class="form-copy">Email</span>
+        <input id="car-email-field" class="form-input" name="car-email-field" type="email" placeholder="Email" data-email-label="Email" /><!--#email-field.form-input-->
+    </label><!--.form-label-->
+    <label class="form-label" for="car-phone-field">
+        <span class="form-copy">Phone</span>
+        <input id="car-phone-field" class="form-input" name="car-phone-field" type="text" placeholder="Phone" data-email-label="Phone" /><!--#email-field.form-input-->
+    </label><!--.form-label-->
+    <label class="form-label" for="car-address-field">
+        <span class="form-copy">Street Address</span>
+        <input id="car-address-field" class="form-input" name="car-address-field" type="text" placeholder="Street Address" data-email-label="Street Address" /><!--#email-field.form-input-->
+    </label><!--.form-label-->
+    <label class="form-label" for="car-zipcode-field">
+        <span class="form-copy">Zip-Code</span>
+        <input id="car-zipcode-field" class="form-input" name="car-zipcode-field" type="text" placeholder="Zip-Code" data-email-label="Zip-Code" /><!--#email-field.form-input-->
+    </label><!--.form-label-->
+    <input class="form-submit" type="submit" value="Submit"><div class="break"></div>
+    <img class="loading-icon" src="<?php echo get_template_directory_uri(); ?>/images/animations/loading.gif" alt="Your form submission is currently loading!"/>
+    <p class="form-disclaimer"><?php the_field('form_disclaimer', 'options'); ?></p><!--.form-disclaimer-->
 </form><!--#new-car-form-->

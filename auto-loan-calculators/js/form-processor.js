@@ -4,14 +4,49 @@ jQuery(document).ready(function($) {
     // ---------------------
     $('.modal-btn').click(function(e) {
         e.preventDefault();
-        let modal = $(this).data('modal');
+        var modal = $(this).data('modal');
         $(`#${modal}`).parent('.modal-wrap').addClass('active');
     });
     $('.modal-close').click(function(e) {
+        e.preventDefault();
         $('.modal-wrap').removeClass('active');
     });
     $('.modal-overlay').click(function(e) {
+        e.preventDefault();
         $('.modal-wrap').removeClass('active');
+    });
+
+    // ---------------------------------
+    // UI for the featured partner modal
+    // ---------------------------------
+    $('.featured-modal-btn').click(function(e) {
+        e.preventDefault();
+        $('#featured-partner-form .form-input').val('');
+
+        var modal_heading = $(this).data('heading');
+        var modal_instructions = $(this).data('instructions');
+        var modal_disclaimer = $(this).data('disclaimer');
+        var partner_email = $(this).data('partner-email');
+        var account_number = $(this).data('account-number');
+
+        var logo_src = $(this).data('logo-src');
+        var logo_alt = $(this).data('logo-alt');
+
+        $('#featured-partner-form .form-header').html(modal_heading);
+        $('#featured-partner-form .form-instructions').html(modal_instructions);
+        $('#featured-partner-form .form-disclaimer').html(modal_disclaimer);
+        $('#featured-partner-form').attr('data-partner-email', partner_email);
+        $('#featured-partner-form').attr('data-account-number', account_number);
+
+        if (logo_src) {
+            $('#featured-partner-form .form-logo').attr('src', logo_src);
+            $('#featured-partner-form .form-logo').attr('alt', logo_alt);
+        } else {
+            $('#featured-partner-form .form-logo').attr('src', '');
+            $('#featured-partner-form .form-logo').attr('alt', '');
+        }
+
+        $('.featured-partner-wrap').addClass('active');
     });
 
     // ---------------------------------------------------------------------
@@ -1165,18 +1200,18 @@ jQuery(document).ready(function($) {
         $('#model-field').prop({'disabled' : false});
         $('#model-field').html('');
         // grab the car model from the select option chosen from the #make-field input
-        let data_key = $('#make-field option:selected').data('model-key');
+        var data_key = $('#make-field option:selected').data('model-key');
         // create the necessary attributes for the new option created in the #model-field dropdown
-        let option_html;
-        let option_id;
-        let option_make_key;
-        let option_value;
+        var option_html;
+        var option_id;
+        var option_make_key;
+        var option_value;
         // use the car model as a key to loop through the 'car_models' object and pull out models based on selected make
-        let model_keys = Object.keys(car_models);
-        for (let model_key of model_keys) {
+        var model_keys = Object.keys(car_models);
+        for (var model_key of model_keys) {
             if (data_key == model_key) {
-                let make_keys = Object.keys(car_models[model_key]);
-                for (let make_key of make_keys) {
+                var make_keys = Object.keys(car_models[model_key]);
+                for (var make_key of make_keys) {
                     option_id = option_make_key = make_key;
                     option_html = option_value = car_models[model_key][make_key]['name'];
                     if (option_id.startsWith('_')) {
@@ -1195,9 +1230,11 @@ jQuery(document).ready(function($) {
     $('.form-submit').click(function(e) {
         e.preventDefault();
         // Grab the form 'id' and data key
-        let form_id = $(this).parent().attr('id');
+        var form_id = $(this).parent().attr('id');
+        // Initialize the loading wheel animation
+        $(`#${form_id} .loading-icon`).show();
         // Grab the field data from the form
-        let form_fields = [];
+        var form_fields = [];
         // Loop through the fields of the form and create an array of its field ids and values
         $(`#${form_id} .form-input`).each(function(i) {
             form_fields[i] = {
@@ -1207,13 +1244,14 @@ jQuery(document).ready(function($) {
             }
         });
         // Create a JSON object for the forms data
-        let form_data = {
+        var form_data = {
             form_id : form_id,
             form_fields : form_fields,
         }
         // If the form is the 'featured-partner' form, include the partner's email to set for notification forwarding
         if (form_id == 'featured-partner-form') {
             form_data['partner_email'] = $(`#${form_id}`).data('partner-email');
+            form_data['account_number'] = $(`#${form_id}`).data('account-number');
         }
         // AJAX call to send the form data and retrieve response from the form processor script
         $.ajax({
@@ -1225,19 +1263,25 @@ jQuery(document).ready(function($) {
                 form_data : form_data,
             },
             success : function(response) {
+                $(`#${form_id} .loading-icon`).hide();
                 if (response.flag == true) {
                     $(`#${form_id} .form-input`).removeClass('error-field');
                     console.log('There are errors in the form!');
                     console.log(response.error_msg);
-                    let invalid_fields = Object.keys(response.invalid_fields);
-                    for (let field of invalid_fields) {
-                        let field_id = response.invalid_fields[field].replace('_', '-');
+                    var invalid_fields = Object.keys(response.invalid_fields);
+                    for (var field of invalid_fields) {
+                        var field_id = response.invalid_fields[field].replace('_', '-');
                         $(`#${form_id} #${field_id}`).addClass('error-field');
                         $(`#${form_id} .form-header`).html(response.error_msg);
                     }
                 }
                 else {
-                    window.location.replace('http://www.autoloancalculators.com/contact-us/thank-you');
+                    if (form_id == 'contact-form') {
+                        window.location.replace('http://www.autoloancalculators.com/contact-us/thank-you');
+                    }
+                    else {
+                        $(`#${form_id}`).parent().parent().removeClass('active');
+                    }
                 }
             }
         })

@@ -61,19 +61,23 @@ function form_processor() {
         $to = $subject = '';
         switch ($form_data['form_id']) {
             case 'contact-form' : 
-                $to = 'carlo.piantini@gmail.com';
+                $to = 'info@autoloancalculators.com';
                 $subject = 'Submission from the "Contact Us" Form';
                 break;
             case 'featured-partner-form' : 
                 $to = $form_data['partner_email'];
-                $subject = 'Submission from the "Featured Partner" Form';
+                if (isset($form_data['account_number']) && $form_data['account_number'] != '') {
+                    $subject = 'New Lead from AutoLoanCalculators.com - Account Number ' . $form_data['account_number'];
+                } else {
+                    $subject = 'New Lead from AutoLoanCalculators.com';
+                }
                 break;
             case 'new-car-form' : 
-                $to = 'info@autoloancalculators.com';
-                $subject = 'Submission from the "New Car Quote" Form';
+                $to = 'leads@autoloancalculators.com';
+                $subject = 'New Lead from AutoLoanCalculators.com';
                 break;
         }
-        $body = 'Form submission from http://www.autoloancalculators.com';
+        $body = 'Form submission from http://www.autoloancalculators.com<br/>';
         foreach ($form_fields as $field) {
             $body .= $field['label'] . ' : ' . $field['value'] . '<br/>';
         }

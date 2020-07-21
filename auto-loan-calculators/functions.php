@@ -89,6 +89,70 @@ if ( ! function_exists( 'auto_loan_calculators_setup' ) ) :
 			register_post_type( 'partner', $args );
 		}
 
+		add_action('admin_init', 'admin_init');
+		function admin_init() {
+			add_meta_box("account_name", "Account Name", "account_name", "partner", "side", "low");
+			add_meta_box("account_number", "Account Number", "account_number", "partner", "side", "low");
+		}
+
+		function account_name() {
+			global $post;
+			$custom = get_post_custom($post->ID);
+			$account_name = $custom['account_name'][0]; ?>
+			<input name="account_name" value="<?php echo $account_name; ?>"/>
+		<?php }
+
+		function account_number() {
+			global $post;
+			$custom = get_post_custom($post->ID);
+			$account_number = $custom['account_number'][0]; ?>
+			<input name="account_number" value="<?php echo $account_number; ?>"/>
+		<?php }
+
+		add_action('save_post', 'save_account_info');
+		function save_account_info() {
+			global $post;
+
+			update_post_meta($post->ID, 'account_name', $_POST['account_name']);
+			update_post_meta($post->ID, 'account_number', $_POST['account_number']);
+		}
+
+		add_filter('manage_partner_posts_columns', 'partner_posts_columns');
+		function partner_posts_columns($columns) {
+			$columns = array(
+				'cb' 			=> $columns['cb'],
+				'title'			=> __( 'Title' ),
+				'account_name' 	=> __( 'Account Name' ),
+				'account_number'=> __( 'Account Number' ),
+				'author'		=> __( 'Author' ),
+				'comments'		=> $columns['comments'],
+				'date'			=> __( 'Date' ),
+			); 
+			return $columns;
+		}
+
+		add_action('manage_partner_posts_custom_column', 'partner_posts_custom_column');
+		function partner_posts_custom_column($column) {
+			global $post;
+
+			if ('account_name' === $column) {
+				$custom = get_post_custom();
+				echo $custom['account_name'][0];
+			}
+
+			if ('account_number' === $column) {
+				$custom = get_post_custom();
+				echo $custom['account_number'][0];
+			}
+		}
+
+		add_filter('manage_edit-partner_sortable_columns', 'partner_sortable_columns');
+		function partner_sortable_columns($columns) {
+			$columns['account_name'] = 'account_name';
+			$columns['account_number'] = 'account_number';
+			return $columns;
+		}
+
 		/*
 		 * Switch default core markup for search form, comment form, and comments
 		 * to output valid HTML5.
@@ -162,16 +226,18 @@ add_action( 'widgets_init', 'auto_loan_calculators_widgets_init' );
  * Enqueue scripts and styles.
  */
 function auto_loan_calculators_scripts() {
-	wp_enqueue_style( 'auto-loan-calculators-style', get_stylesheet_uri() );
+	wp_enqueue_style( 'auto-loan-calculators-style', get_template_directory_uri() . '/css/dist/styles.min.css' );
 
-	wp_enqueue_script( 'auto-loan-calculators-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20151215', true );
-	wp_enqueue_script( 'auto-loan-calculators-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
+	wp_enqueue_script( 'auto-loan-calculators-jqueryui', '//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js', array('jquery'), '20151215', true );
+	wp_register_script( 'auto-loan-calculators-scripts', get_template_directory_uri() . '/js/dist/scripts.min.js', array('jquery'), '1.0.0', true );
+	wp_localize_script( 'auto-loan-calculators-scripts', 'ajax', array( 'url' => admin_url('admin-ajax.php')) );
+	wp_enqueue_script( 'auto-loan-calculators-scripts' );
 
-	wp_enqueue_script( 'auto-loan-calculators', get_template_directory_uri() . '/js/calculators.js', array('jquery'), '20151215', true );
-
-	wp_register_script( 'auto-loan-calculators-form-processor', get_template_directory_uri() . '/js/form-processor.js', array('jquery'), '20151215', true );
-	wp_localize_script( 'auto-loan-calculators-form-processor', 'ajax', array( 'url' => admin_url('admin-ajax.php')) );
-	wp_enqueue_script( 'auto-loan-calculators-form-processor' );
+	// wp_enqueue_script( 'auto-loan-calculators-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20151215', true );
+	// wp_enqueue_script( 'auto-loan-calculators-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
+	// wp_enqueue_script( 'auto-loan-calculators', get_template_directory_uri() . '/js/calculators.js', array('jquery'), '20151215', true );
+	// wp_enqueue_script( 'auto-loan-calculators-iris', get_template_directory_uri() . '/js/libs/iris.min.js', array('jquery'), '20151215', true );
+	// wp_enqueue_script( 'auto-loan-calculators-widget-ui', get_template_directory_uri() . '/js/widget-ui.js', array('jquery'), '20151216', true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
@@ -183,6 +249,11 @@ add_action( 'wp_enqueue_scripts', 'auto_loan_calculators_scripts' );
  * Include form processors for the site.
  */
 require get_template_directory() . '/inc/form-processor.php';
+
+/**
+ * Include script for the 'Email Me' button.
+ */
+require get_template_directory() . '/inc/email-button.php';
 
 /**
  * Implement the Custom Header feature.
@@ -211,3 +282,80 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
 
+/**
+ * Include 'Theme Settings' options page in the back-end of WordPress
+ */
+if( function_exists('acf_add_options_page') ) {
+	acf_add_options_page(array(
+		'page_title' 	=> 'Theme General Settings',
+		'menu_title'	=> 'Theme Settings',
+		'menu_slug' 	=> 'theme-general-settings',
+		'capability'	=> 'edit_posts',
+		'redirect'		=> false
+	));	
+}
+
+/*
+* Creating a custom post type to register form leads
+*/
+function form_leads_cpt() {
+// Set UI labels for Custom Post Type
+	$labels = array(
+		'name'                => _x( 'Leads', 'Post Type General Name', 'twentytwenty' ),
+		'singular_name'       => _x( 'Lead', 'Post Type Singular Name', 'twentytwenty' ),
+		'menu_name'           => __( 'Leads', 'twentytwenty' ),
+		'parent_item_colon'   => __( 'Parent Lead', 'twentytwenty' ),
+		'all_items'           => __( 'All Leads', 'twentytwenty' ),
+		'view_item'           => __( 'View Lead', 'twentytwenty' ),
+		'add_new_item'        => __( 'Add New Lead', 'twentytwenty' ),
+		'add_new'             => __( 'Add New', 'twentytwenty' ),
+		'edit_item'           => __( 'Edit Lead', 'twentytwenty' ),
+		'update_item'         => __( 'Update Lead', 'twentytwenty' ),
+		'search_items'        => __( 'Search Lead', 'twentytwenty' ),
+		'not_found'           => __( 'Not Found', 'twentytwenty' ),
+		'not_found_in_trash'  => __( 'Not found in Trash', 'twentytwenty' ),
+	);
+		
+// Set other options for Custom Post Type
+		
+	$args = array(
+		'label'               => __( 'leads', 'twentytwenty' ),
+		'description'         => __( 'Form Leads', 'twentytwenty' ),
+		'labels'              => $labels,
+		// Features this CPT supports in Post Editor
+		'supports'            => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'comments', 'revisions', 'custom-fields', ),
+		// You can associate this CPT with a taxonomy or custom taxonomy. 
+		'taxonomies'          => array( 'category' ),
+		/* A hierarchical CPT is like Pages and can have
+		* Parent and child items. A non-hierarchical CPT
+		* is like Posts.
+		*/ 
+		'hierarchical'        => false,
+		'public'              => true,
+		'show_ui'             => true,
+		'show_in_menu'        => true,
+		'show_in_nav_menus'   => true,
+		'show_in_admin_bar'   => true,
+		'menu_position'       => 5,
+		'can_export'          => true,
+		'has_archive'         => true,
+		'exclude_from_search' => false,
+		'publicly_queryable'  => true,
+		'capability_type'     => 'post',
+		'show_in_rest' => true,
+	
+	);
+		
+	// Registering your Custom Post Type
+	register_post_type( 'leads', $args );
+}
+add_action( 'init', 'form_leads_cpt', 0 );
+
+// Disable use XML-RPC
+remove_action ('wp_head', 'rsd_link');
+
+// Remove Gutenburg Block Library CSS
+add_action( 'wp_enqueue_scripts', 'webapptiv_remove_block_library_css' );
+function webapptiv_remove_block_library_css() {
+	wp_dequeue_style( 'wp-block-library' ); 
+}

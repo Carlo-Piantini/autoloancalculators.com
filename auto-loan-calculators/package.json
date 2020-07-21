@@ -1,0 +1,22 @@
+{
+  "name": "auto-loan-calculators",
+  "version": "1.0.0",
+  "description": "Custom theme for Auto Loan Calculators",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Carlo-Piantini/autoloancalculators.com.git"
+  },
+  "author": "Carlo Piantini",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Carlo-Piantini/autoloancalculators.com/issues"
+  },
+  "homepage": "https://github.com/Carlo-Piantini/autoloancalculators.com#readme",
+  "devDependencies": {
+    "gulp": "^4.0.2"
+  }
+}
