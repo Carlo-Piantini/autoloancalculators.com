@@ -127,7 +127,8 @@ if ( ! is_active_sidebar( 'sidebar-1' ) ) {
 					</div><!--.partner-content-->
 				<?php elseif (get_field('sidebar_ad_type') == 'image') : ?>
 					<?php if (get_field('button_type_sidebar') == 'link') : ?>
-						<a href="<?php the_field('button_link_sidebar'); ?>" target="_blank">
+						<?php $partner_ID = get_the_ID(); ?>
+						<a class="linkout-btn" data-linkout-type="sidebar" data-partner-id="<?php echo $partner_ID; ?>" href="<?php the_field('button_link_sidebar'); ?>" target="_blank">
 							<?php $ad_image = get_field('ad_image'); ?>
 							<img class="ad-image" src="<?php echo $ad_image['url']; ?>" alt="<?php echo $ad_image['alt'] ?>" />
 						</a>

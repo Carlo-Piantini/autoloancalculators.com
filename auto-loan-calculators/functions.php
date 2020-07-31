@@ -93,6 +93,8 @@ if ( ! function_exists( 'auto_loan_calculators_setup' ) ) :
 		function admin_init() {
 			add_meta_box("account_name", "Account Name", "account_name", "partner", "side", "low");
 			add_meta_box("account_number", "Account Number", "account_number", "partner", "side", "low");
+			add_meta_box("sidebar_linkout_clicks", "Sidebar Linkout Clicks", "sidebar_linkout_clicks", "partner", "side", "low");
+			add_meta_box("button_linkout_clicks", "Button Linkout Clicks", "button_linkout_clicks", "partner", "side", "low");
 		}
 
 		function account_name() {
@@ -109,24 +111,42 @@ if ( ! function_exists( 'auto_loan_calculators_setup' ) ) :
 			<input name="account_number" value="<?php echo $account_number; ?>"/>
 		<?php }
 
-		add_action('save_post', 'save_account_info');
-		function save_account_info() {
+		function sidebar_linkout_clicks() {
+			global $post;
+			$custom = get_post_custom($post->ID);
+			$sidebar_linkout_clicks = $custom['sidebar_linkout_clicks'][0]; ?>
+			<input name="sidebar_linkout_clicks" value="<?php echo $sidebar_linkout_clicks; ?>"/>
+		<?php }
+
+		function button_linkout_clicks() {
+			global $post;
+			$custom = get_post_custom($post->ID);
+			$button_linkout_clicks = $custom['button_linkout_clicks'][0]; ?>
+			<input name="button_linkout_clicks" value="<?php echo $button_linkout_clicks; ?>"/>
+		<?php }
+
+		add_action('save_post', 'save_partner_info');
+		function save_partner_info() {
 			global $post;
 
 			update_post_meta($post->ID, 'account_name', $_POST['account_name']);
 			update_post_meta($post->ID, 'account_number', $_POST['account_number']);
+			update_post_meta($post->ID, 'sidebar_linkout_clicks', $_POST['sidebar_linkout_clicks']);
+			update_post_meta($post->ID, 'button_linkout_clicks', $_POST['button_linkout_clicks']);
 		}
 
 		add_filter('manage_partner_posts_columns', 'partner_posts_columns');
 		function partner_posts_columns($columns) {
 			$columns = array(
-				'cb' 			=> $columns['cb'],
-				'title'			=> __( 'Title' ),
-				'account_name' 	=> __( 'Account Name' ),
-				'account_number'=> __( 'Account Number' ),
-				'author'		=> __( 'Author' ),
-				'comments'		=> $columns['comments'],
-				'date'			=> __( 'Date' ),
+				'cb' 						=> $columns['cb'],
+				'title'						=> __( 'Title' ),
+				'account_name' 				=> __( 'Account Name' ),
+				'account_number'			=> __( 'Account Number' ),
+				'sidebar_linkout_clicks'	=> __( 'Sidebar Linkout Clicks' ),
+				'button_linkout_clicks'		=> __( 'Button Linkout Clicks' ),
+				'author'					=> __( 'Author' ),
+				'comments'					=> $columns['comments'],
+				'date'						=> __( 'Date' ),
 			); 
 			return $columns;
 		}
@@ -144,12 +164,24 @@ if ( ! function_exists( 'auto_loan_calculators_setup' ) ) :
 				$custom = get_post_custom();
 				echo $custom['account_number'][0];
 			}
+
+			if ('sidebar_linkout_clicks' === $column) {
+				$custom = get_post_custom();
+				echo $custom['sidebar_linkout_clicks'][0];
+			}
+
+			if ('button_linkout_clicks' === $column) {
+				$custom = get_post_custom();
+				echo $custom['button_linkout_clicks'][0];
+			}
 		}
 
 		add_filter('manage_edit-partner_sortable_columns', 'partner_sortable_columns');
 		function partner_sortable_columns($columns) {
 			$columns['account_name'] = 'account_name';
 			$columns['account_number'] = 'account_number';
+			$columns['sidebar_linkout_clicks'] = 'sidebar_linkout_clicks';
+			$columns['button_linkout_clicks'] = 'button_linkout_clicks';
 			return $columns;
 		}
 
@@ -254,6 +286,11 @@ require get_template_directory() . '/inc/form-processor.php';
  * Include script for the 'Email Me' button.
  */
 require get_template_directory() . '/inc/email-button.php';
+
+/**
+ * Include script that updates the linkout data for the featured partner posts.
+ */
+require get_template_directory() . '/inc/update-linkout.php';
 
 /**
  * Implement the Custom Header feature.
