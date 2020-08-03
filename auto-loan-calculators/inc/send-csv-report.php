@@ -47,22 +47,20 @@ function send_csv_report() {
     foreach ($partner_data as $data_row) {
         fputcsv($csv_output, $data_row);
     }
-    // Use PHPMailer to create a new email and send the .csv file as an attachment, then close out the file
-    $mail = new PHPMailer(true);
+
+    // Use Post SMTP to send .csv file as attachment in email through Gmail API
+    $to = 'info@autoloancalculators.com, carlo.piantini@gmail.com';
+    $subject = 'Monthly Linkout Click Data';
+    $body = 'Attached below is the monthly report on linkout click data for all featured partners.';
+    $headers = 'From: Auto Loan Calculators <info@autoloancalculators.com>' . "\r\n";
+    $attachments = $tmp_name;
+
     try {
-        $mail->isHTML(true);
-        $mail->Subject = "Monthly Linkout Click Data";
-        $mail->Body = "Attached below is the monthly report on linkout click data for all featured partners.";
-        $mail->setFrom('info@autoloancalculators.com', 'AutoLoanCalculators');
-        $mail->addAddress('info@autoloancalculators.com');
-        $mail->addAddress('carlo.piantini@gmail.com');
-        $mail->addReplyTo('info@autoloancalculators.com');
-        $mail->addAttachment($tmp_name);
-        $mail->send();
-        echo 'Message has been sent.';
+        wp_mail($to, $subject, $body, $headers, $attachments);
     } catch (Exception $e) {
-        echo "Message couldn't be sent.";
+        echo "Message couldn't be sent: " . $e;
     }
+
     unlink($tmp_name);
     fclose($csv_output);
 }
